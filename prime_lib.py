@@ -1,7 +1,7 @@
 # Library for dealing with prime numbers
 from math import sqrt
 
-def isprime(number):
+def is_prime(number):
     if number % 2 == 0 or number % 3 == 0: return False
     for divisor in range(5, int(sqrt(number)+1), 2):
         if number % divisor == 0: return False
@@ -14,7 +14,7 @@ def primes_sieve(limit):
     a[0] = a[1] = False
 
     for (i, isprime) in enumerate(a):
-        if isprime:
+        if is_prime:
             yield i
             for n in range(i*i, limit, i): #Mark factors non-prime
                 a[n] = False
@@ -45,3 +45,16 @@ def postponed_sieve():
             c2 += s                        #  (increments by the given step)
         sieve[c2] = s                   
         c += 2                             # next odd candidate
+
+  
+def gcd(number_one, number_two):
+    """Function implements Euclid's algorithm to find gcd of its arguments."""
+    bigger = max(number_one, number_two)
+    smaller = min(number_one, number_two)
+
+    remainder = 1
+    while remainder:
+        remainder = bigger - smaller * (bigger // smaller)
+        bigger, smaller = smaller, remainder
+
+    return bigger
