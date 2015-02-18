@@ -58,3 +58,23 @@ def gcd(number_one, number_two):
         bigger, smaller = smaller, remainder
 
     return bigger
+    
+
+def euler_phi(number):
+    prime_generator = postponed_sieve()
+    result = number
+    upper_limit = int(sqrt(number) + 1)
+    
+    while True:
+        prime = prime_generator.next()
+        if prime > upper_limit:
+            break
+        else:
+            if number % prime == 0:
+                result *= (1 - (1.0 / prime))
+
+    if number == result:
+        result -= 1
+        
+    return int(result)
+        
