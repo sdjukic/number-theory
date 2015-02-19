@@ -59,10 +59,10 @@ def gcd(number_one, number_two):
 
     return bigger
     
-
-def euler_phi(number):
+def prime_factors(number):
+    """Function that returns list of prime factors of a number."""
     prime_generator = postponed_sieve()
-    result = number
+    result = []
     upper_limit = int(sqrt(number) + 1)
     
     while True:
@@ -71,10 +71,24 @@ def euler_phi(number):
             break
         else:
             if number % prime == 0:
-                result *= (1 - (1.0 / prime))
+                result.append(prime)
+                while number % prime == 0:
+                    number /= prime
+                    
+    if number != 1:
+        if is_prime(number):
+            result.append(number)
+            
+    return result
+    
+    
+def euler_phi(number):
+    """Function that calculates Euler's phi of a number."""
+    result = number
+    factors = prime_factors(number)
+    
+    for factor in factors:
+      result *= (1 - (1.0 / factor))
 
-    if number == result:
-        result -= 1
-        
     return int(result)
         
